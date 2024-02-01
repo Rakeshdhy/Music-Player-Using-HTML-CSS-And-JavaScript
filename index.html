@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/0ef6695f2c.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="music-player">
+            <nav>
+                <div class="circle">
+                    <i class="fa-solid fa-angle-left"></i>
+                </div>
+                <div class="circle">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </nav>
+            <img src="images/468-thumbnail.png" alt="" class="song-img">
+            <h1>Despacito</h1>
+            <p>kastomarin Blame</p>
+
+                <audio id="song">
+                        <source src="media/kastomarin-blame-original-mix.mp3" type="audio/mp3">
+                </audio>
+
+                <input type="range" value="0" id="progress">
+                <div class="controls">
+                    <div><i class="fa-solid fa-backward"></i> </div>
+                    <div onclick="playPause()" > <i class="fa-solid fa-play" id="ctrlBtn"></i> </div>
+                    <div> <i class="fa-solid fa-forward"></i> </div>
+                </div>
+
+        </div>
+    </div>
+
+ <script src="script.js"></script>   
+
+<script>
+
+const progressBar = document.getElementById("progress");
+const song = document.getElementById("song");
+const ctrlBtn = document.getElementById("ctrlBtn")
+
+song.onloadedmetadata = function(){
+    progressBar.max = song.duration;
+    progressBar.value = song.currentTime;
+}
+
+function playPause(){
+    if(ctrlBtn.classList.contains("fa-pause")){
+        song.pause();
+        ctrlBtn.classList.remove("fa-pause");
+        ctrlBtn.classList.add("fa-play")
+
+        
+        }else{
+            song.play();
+            ctrlBtn.classList.remove("fa-play")
+            ctrlBtn.classList.add("fa-pause");
+
+        }
+
+
+}
+
+if(song.play()){
+    setInterval(()=>{
+        progressBar.value = song.currentTime;
+ 
+    },500);
+    }
+
+
+    progressBar.onchange = function(){
+        song.play();
+       song.currentTime = progressBar.value;
+       ctrlBtn.classList.add("fa-pause");
+       ctrlBtn.classList.remove("fa-play")
+        
+
+    }
+
+
+
+</script>
+</body>
+</html>
